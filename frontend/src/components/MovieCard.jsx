@@ -1,3 +1,4 @@
+import "../css/MovieCard.css"
 
 function MovieCard({movie}) {
 
@@ -21,4 +22,4 @@ function MovieCard({movie}) {
     </div>
 }
 
-export default MovieCard
+export default MovieCard;
