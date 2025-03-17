@@ -7,6 +7,13 @@
     height: 100%;
     display: flex;
     flex-direction: column;
+     /* Add max width and max height */
+     max-width: 300px;  /* Adjust as needed */
+     max-height: 450px; /* Adjust as needed */
+     
+     /* Optional: Ensure it doesn't shrink too much */
+     min-width: 200px;
+     min-height: 300px;
   }
   
   .movie-card:hover {
