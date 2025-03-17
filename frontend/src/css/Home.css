@@ -41,6 +41,20 @@
   .search-button:hover {
     background-color: #f40612;
   }
+
+  .lottery-button {
+    padding: 0.75rem 1.5rem;
+    background-color: #5d09e5;
+    color: white;
+    border-radius: 4px;
+    font-weight: 500;
+    transition: background-color 0.2s;
+    white-space: nowrap;
+  }
+  
+  .lottery-button:hover {
+    background-color: #6d06f4;
+  }
   
   
   @media (max-width: 639px) {

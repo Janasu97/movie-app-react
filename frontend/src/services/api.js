@@ -12,3 +12,10 @@ export const searchMovies = async (query) => {
     const data = await response.json()
     return data.results
 };
+
+export const getMovieLottery= async () => {
+    const response = await fetch(`${BASE_URL}/movie/popular?api_key=${API_KEY}`);
+    const data = await response.json()
+    const randomMovie = data.results[Math.floor(Math.random() * data.results.length)];
+    return randomMovie;
+};

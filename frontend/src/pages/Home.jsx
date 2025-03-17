@@ -1,6 +1,6 @@
 import MovieCard from "../components/MovieCard";
 import { useState, useEffect } from "react";
-import { searchMovies, getPopularMovies } from "../services/api"
+import { searchMovies, getPopularMovies, getMovieLottery } from "../services/api"
 import "../css/Home.css"
 
 function Home() {
@@ -30,13 +30,27 @@ function Home() {
 
     const handleSearch = async (e) => {
         e.preventDefault()
-        if (!searchQuery.trim()) return
+        if (!searchQuery.trim() && searchQuery !== "") return
         if (loading) return
 
         setLoading(true)
         try {
-            const searchResults = await searchMovies(searchQuery)
-            setMovies(searchResults)
+            if (searchQuery === "") {
+                try {
+                    const popularMovies = await getPopularMovies()
+                    setMovies(popularMovies)
+                } catch (err) {
+                    console.log(err)
+                    setError("Failed to load movies...")
+                }
+                finally {
+                    setLoading(false)
+                }
+            } else {
+                const searchResults = await searchMovies(searchQuery)
+                setMovies(searchResults)
+            }
+            
             setError(null)
         } catch (err) {
             console.log(err)
@@ -45,6 +59,20 @@ function Home() {
             setLoading(false)
         }
     };
+
+    const handleMovieLottery = async (e) => {
+        e.preventDefault()
+        setLoading(true)
+        try {
+            const movieLottery = await getMovieLottery()
+            setMovies([movieLottery])
+        } catch (err) {
+            console.log(err)
+            setError("Failed to retrieve lottery movie...")
+        } finally {
+            setLoading(false)
+        }
+    }
 
     return (
     <div className="home">
@@ -56,6 +84,7 @@ function Home() {
                     onChange={(e) => setSearchQuery(e.target.value)}
             />
             <button type="submit" className="search-button">Search</button>
+            <button type="button" className="lottery-button" onClick={handleMovieLottery}>Lottery</button>
         </form>
         
         {error && <div className="error-message">{error}</div>}
